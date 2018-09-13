@@ -20,7 +20,7 @@ function writePeriodUserRows(color) {
     return /SUP/.test(project.name);
   });
   OPTIONS.projects.forEach(function(project) {
-    var nameProject = project.parent ? project.parent.name : project.name;
+    var nameProject = project.name;
     sheet.getRange(rowI++, 1).setValue(nameProject).setBackground(color);
   });
 }

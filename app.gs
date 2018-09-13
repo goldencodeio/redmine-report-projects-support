@@ -1,6 +1,6 @@
 function createMonthlyReport() {
   initMonthlyOptions();
-  initPeriodTable('#27bf02');
+  initPeriodTable('#66cc66');
   processReports();
 }
 

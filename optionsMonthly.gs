@@ -10,10 +10,10 @@ function initMonthlyOptions() {
   if (existingSheet)
     existingSheet.activate();
   else
-    createNewSheet(sheetName, '#27bf02');
+    createNewSheet(sheetName, '#66cc66');
 }
 
 function createNewSheet(name, color) {
   var _ss = SpreadsheetApp.getActiveSpreadsheet();
-  return _ss.insertSheet(name).setTabColor(color).setColumnWidth(1, 200).activate().setFrozenColumns(1);
+  return _ss.insertSheet(name).setTabColor(color).setColumnWidth(1, 600).activate().setFrozenColumns(1);
 }

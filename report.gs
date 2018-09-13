@@ -1,7 +1,7 @@
 var REPORT = [
   {
     code: 'legal_person',
-    name: 'Юридическое лицо',
+    name: 'Юридическое\nлицо',
     manual: true
   },
   {
@@ -11,22 +11,22 @@ var REPORT = [
   },
   {
     code: 'contract_time_spend',
-    name: 'Прописано в договоре,\nч/мес',
+    name: 'Прописано в\nдоговоре,\nч/мес',
     manual: true
   },
   {
     code: 'max_time_spend',
-    name: 'Макс. допустимые\nтрудозатраты, ч/мес.',
+    name: 'Макс. допустимые\nтрудозатраты,\nч/мес.',
     manual: true
   },
   {
     code: 'time_spend_open_task',
-    name: 'Фактическое кол-во\nчасов в августе,\nч (с незакрытыми задачами)',
+    name: 'Фактическое кол-во\nчасов в августе,\nч (с незакрытыми\nзадачами)',
     manual: false
   },
   {
     code: 'time_spend_closed_task',
-    name: 'Только закрытые задачи, ч',
+    name: 'Только закрытые\nзадачи, ч',
     manual: false
   }
 ];
@@ -71,6 +71,7 @@ function getTimeSpendOpenTask(project) {
   ]});
 
   var timeEntries = res.time_entries.filter(function(timeEntry) {
+    if (!timeEntry.issue) return false;
     var res = APIRequestById('issues', timeEntry.issue.id);
     return (res.issue.status.id !== 5 && res.issue.tracker.id === 7);
   });
@@ -87,6 +88,7 @@ function GetTimeSpendClosedTask(project) {
   ]});
 
   var timeEntries = res.time_entries.filter(function(timeEntry) {
+    if (!timeEntry.issue) return false;
     var res = APIRequestById('issues', timeEntry.issue.id);
     return (res.issue.status.id === 5 && res.issue.tracker.id === 7);
   });
