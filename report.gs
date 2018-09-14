@@ -59,21 +59,27 @@ function getProjectReport(report, project) {
       break;
 
     case 'time_spend_closed_task':
-      return GetTimeSpendClosedTask(project);
+      return getTimeSpendClosedTask(project);
       break;
   }
 }
 
 function getTimeSpendOpenTask(project) {
-  var res = APIRequest('time_entries', {query: [
+  var issues = APIRequest('issues', {query: [
     {key: 'project_id', value: project.id},
-    {key: 'spent_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
+    {key: 'status_id', value: 'open'},
+    {key: 'tracker_id', value: 7},
+    {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
   ]});
 
-  var timeEntries = res.time_entries.filter(function(timeEntry) {
-    if (!timeEntry.issue) return false;
-    var res = APIRequestById('issues', timeEntry.issue.id);
-    return (res.issue.status.id !== 5 && res.issue.tracker.id === 7);
+  var timeEntries = [];
+
+  issues.issues.forEach(function(issue) {
+    var res = APIRequest('time_entries', {query: [
+      {key: 'issue_id', value: issue.id}
+    ]});
+
+    timeEntries = timeEntries.concat(res.time_entries);
   });
 
   return timeEntries.reduce(function(a, c) {
@@ -81,16 +87,22 @@ function getTimeSpendOpenTask(project) {
   }, 0);
 }
 
-function GetTimeSpendClosedTask(project) {
-  var res = APIRequest('time_entries', {query: [
+function getTimeSpendClosedTask(project) {
+  var issues = APIRequest('issues', {query: [
     {key: 'project_id', value: project.id},
-    {key: 'spent_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
+    {key: 'status_id', value: 5},
+    {key: 'tracker_id', value: 7},
+    {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
   ]});
 
-  var timeEntries = res.time_entries.filter(function(timeEntry) {
-    if (!timeEntry.issue) return false;
-    var res = APIRequestById('issues', timeEntry.issue.id);
-    return (res.issue.status.id === 5 && res.issue.tracker.id === 7);
+  var timeEntries = [];
+
+  issues.issues.forEach(function(issue) {
+    var res = APIRequest('time_entries', {query: [
+      {key: 'issue_id', value: issue.id}
+    ]});
+
+    timeEntries = timeEntries.concat(res.time_entries);
   });
 
   return timeEntries.reduce(function(a, c) {
