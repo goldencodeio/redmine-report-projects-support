@@ -14,13 +14,18 @@ function writePeriodHeader(color) {
 
 function writePeriodUserRows(color) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var rowI = 2;
+  var rowI = 2 + (OPTIONS.counter * 20);
   var allProjects = APIRequest('projects').projects;
   OPTIONS.projects = allProjects.filter(function(project) {
     return /SUP/.test(project.name);
   });
+  OPTIONS.projects = OPTIONS.projects.splice(OPTIONS.counter * 20, 20);
+  if (OPTIONS.projects.length === 0) {
+    Browser.msgBox('По данному счётчику отсутсвуют проекты');
+    return
+  }
   OPTIONS.projects.forEach(function(project) {
-    var nameProject = project.name;
-    sheet.getRange(rowI++, 1).setValue(nameProject).setBackground(color);
+    sheet.getRange(rowI++, 1).setValue(project.name).setBackground(color);
   });
+  processReports();
 }
