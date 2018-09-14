@@ -14,12 +14,12 @@ function writePeriodHeader(color) {
 
 function writePeriodUserRows(color) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var rowI = 2 + (OPTIONS.counter * 20);
+  var rowI = 2 + (OPTIONS.counter * OPTIONS.quantity);
   var allProjects = APIRequest('projects').projects;
   OPTIONS.projects = allProjects.filter(function(project) {
     return /SUP/.test(project.name);
   });
-  OPTIONS.projects = OPTIONS.projects.splice(OPTIONS.counter * 20, 20);
+  OPTIONS.projects = OPTIONS.projects.splice(OPTIONS.counter * OPTIONS.quantity, OPTIONS.quantity);
   if (OPTIONS.projects.length === 0) {
     Browser.msgBox('По данному счётчику отсутсвуют проекты');
     return

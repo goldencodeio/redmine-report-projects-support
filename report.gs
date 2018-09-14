@@ -34,7 +34,7 @@ var REPORT = [
 function processReports() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getActiveSheet();
-  var rowI = 2 + (OPTIONS.counter * 20);
+  var rowI = 2 + (OPTIONS.counter * OPTIONS.quantity);
   var columnI = 2;
 
   OPTIONS.projects.forEach(function(project) {
