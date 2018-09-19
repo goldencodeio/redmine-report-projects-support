@@ -15,6 +15,16 @@ var REPORT = [
     manual: true
   },
   {
+    code: 'plan_quantity_departure',
+    name: 'планируемое\nколичество\nвыездов',
+    manual: true
+  },
+  {
+    code: 'fact_quantity_departure',
+    name: 'фактическое\nколичество\nвыездов',
+    manual: true
+  },
+  {
     code: 'contract_time_spend',
     name: 'Прописано в\nдоговоре,\nч/мес',
     manual: true
