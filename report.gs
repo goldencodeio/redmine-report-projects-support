@@ -5,6 +5,11 @@ var REPORT = [
     manual: true
   },
   {
+    code: 'lpr_notices',
+    name: 'ЛПР уведомлен/\nне уведомлен',
+    manual: true
+  },
+  {
     code: 'monthly_pay',
     name: 'Сумма в месяц,\nруб',
     manual: true
@@ -21,7 +26,7 @@ var REPORT = [
   },
   {
     code: 'time_spend_open_task',
-    name: 'Фактическое кол-во\nчасов в августе,\nч (с незакрытыми\nзадачами)',
+    name: 'Фактическое\nкол-во часов,\nч (с незакрытыми\nзадачами)',
     manual: false
   },
   {
@@ -41,6 +46,10 @@ function processReports() {
     REPORT.forEach(function(report) {
       if (!report.manual) {
         var reportValue = getProjectReport(report.code, project);
+        if (report.code === 'time_spend_open_task' && isNumeric(sheet.getRange(rowI, columnI - 2).getValue())) {
+          if (reportValue > sheet.getRange(rowI, columnI - 2).getValue())
+            sheet.getRange(rowI, 1, 1, sheet.getLastColumn()).setBackground('#f00');
+        }
         sheet.getRange(rowI, columnI++).setValue(reportValue);
       } else {
         columnI++;

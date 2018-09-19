@@ -12,6 +12,10 @@ function getDateRage(startDate, finalDate) {
   return '><' + formatDate(startDate) + '|' + formatDate(finalDate);
 }
 
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 // function getDateRangeWithTime(startDate, finalDate) {
 //   var startDate = startDate.toJSON().split('.').shift() + 'Z';
 //   var finalDate = finalDate.toJSON().split('.').shift() + 'Z';
