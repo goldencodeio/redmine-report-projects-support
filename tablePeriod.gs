@@ -25,7 +25,7 @@ function writePeriodUserRows(color) {
     return
   }
   OPTIONS.projects.forEach(function(project) {
-    sheet.getRange(rowI++, 1).setValue(project.name).setBackground(color);
+    sheet.getRange(rowI++, 1).setValue(project.name);
   });
   processReports();
 }

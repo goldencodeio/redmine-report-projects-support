@@ -59,6 +59,8 @@ function processReports() {
         if (report.code === 'time_spend_open_task' && isNumeric(sheet.getRange(rowI, columnI - 1).getValue())) {
           if (reportValue > sheet.getRange(rowI, columnI - 1).getValue())
             sheet.getRange(rowI, 1, 1, sheet.getLastColumn()).setBackground('#f00');
+          else
+            sheet.getRange(rowI, 1, 1, sheet.getLastColumn()).setBackground('#fff');
         }
         sheet.getRange(rowI, columnI++).setValue(reportValue);
       } else {
