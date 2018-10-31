@@ -97,7 +97,8 @@ function getTimeSpendOpenTask(project) {
 
   issues.issues.forEach(function(issue) {
     var res = APIRequest('time_entries', {query: [
-      {key: 'issue_id', value: issue.id}
+      {key: 'issue_id', value: issue.id},
+      {key: 'activity_id', value: 33}
     ]});
 
     timeEntries = timeEntries.concat(res.time_entries);
@@ -109,18 +110,27 @@ function getTimeSpendOpenTask(project) {
 }
 
 function getTimeSpendClosedTask(project) {
-  var issues = APIRequest('issues', {query: [
-    {key: 'project_id', value: project.id},
-    {key: 'status_id', value: 5},
-    {key: 'tracker_id', value: 7},
-    {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
-  ]});
+  var allTasks = [];
+
+  for (var i = 4; i <= 5; i++) {
+    var issues = APIRequest('issues', {query: [
+      {key: 'project_id', value: project.id},
+      {key: 'status_id', value: 5},
+      {key: 'tracker_id', value: 7},
+      {key: 'cf_34', value: '1'},
+      {key: 'cf_7', value: i},
+      {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
+    ]});
+
+    allTasks = allTasks.concat(issues.issues);
+  }
 
   var timeEntries = [];
 
-  issues.issues.forEach(function(issue) {
+  allTasks.forEach(function(issue) {
     var res = APIRequest('time_entries', {query: [
-      {key: 'issue_id', value: issue.id}
+      {key: 'issue_id', value: issue.id},
+      {key: 'activity_id', value: 33}
     ]});
 
     timeEntries = timeEntries.concat(res.time_entries);
