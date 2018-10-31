@@ -43,6 +43,16 @@ var REPORT = [
     code: 'time_spend_closed_task',
     name: 'Только закрытые\nзадачи, ч',
     manual: false
+  },
+  {
+    code: 'departures_contract',
+    name: 'Выездов по\nдоговору',
+    manual: false
+  },
+  {
+    code: 'departures_fact',
+    name: 'Выездов\nфактических',
+    manual: false
   }
 ];
 
@@ -81,6 +91,14 @@ function getProjectReport(report, project) {
 
     case 'time_spend_closed_task':
       return getTimeSpendClosedTask(project);
+      break;
+
+    case 'departures_contract':
+      return getDeparturesContract(project);
+      break;
+
+    case 'departures_fact':
+      return getDeparturesFact(project);
       break;
   }
 }
@@ -139,4 +157,28 @@ function getTimeSpendClosedTask(project) {
   return timeEntries.reduce(function(a, c) {
     return a + c.hours;
   }, 0);
+}
+
+function getDeparturesContract(project) {
+  return project.custom_fields.find(function(i) {return i.id === 42}).value;
+}
+
+function getDeparturesFact(project) {
+  var allTasks = [];
+
+  for (var i = 4; i <= 5; i++) {
+    var issues = APIRequest('issues', {query: [
+      {key: 'project_id', value: project.id},
+      {key: 'status_id', value: 5},
+      {key: 'tracker_id', value: 7},
+      {key: 'cf_36', value: '1'},
+      {key: 'cf_34', value: '1'},
+      {key: 'cf_7', value: i},
+      {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
+    ]});
+
+    allTasks = allTasks.concat(issues.issues);
+  }
+
+  return allTasks.length;
 }
