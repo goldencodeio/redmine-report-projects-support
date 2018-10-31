@@ -164,21 +164,13 @@ function getDeparturesContract(project) {
 }
 
 function getDeparturesFact(project) {
-  var allTasks = [];
+  var res = APIRequest('issues', {query: [
+    {key: 'project_id', value: project.id},
+    {key: 'status_id', value: '*'},
+    {key: 'tracker_id', value: 7},
+    {key: 'cf_36', value: '1'},
+    {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
+  ]});
 
-  for (var i = 4; i <= 5; i++) {
-    var issues = APIRequest('issues', {query: [
-      {key: 'project_id', value: project.id},
-      {key: 'status_id', value: 5},
-      {key: 'tracker_id', value: 7},
-      {key: 'cf_36', value: '1'},
-      {key: 'cf_34', value: '1'},
-      {key: 'cf_7', value: i},
-      {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
-    ]});
-
-    allTasks = allTasks.concat(issues.issues);
-  }
-
-  return allTasks.length;
+  return res.issues.length;
 }
