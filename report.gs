@@ -36,7 +36,7 @@ var REPORT = [
   },
   {
     code: 'time_spend_open_task',
-    name: 'Фактическое\nкол-во часов,\nч (с незакрытыми\nзадачами)',
+    name: 'Фактическое\nкол-во часов,\nч (со всеми\nзадачами)',
     manual: false
   },
   {
@@ -106,7 +106,7 @@ function getProjectReport(report, project) {
 function getTimeSpendOpenTask(project) {
   var issues = APIRequest('issues', {query: [
     {key: 'project_id', value: project.id},
-    {key: 'status_id', value: 'open'},
+    {key: 'status_id', value: '*'},
     {key: 'tracker_id', value: 7},
     {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
   ]});
