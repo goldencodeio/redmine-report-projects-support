@@ -108,6 +108,7 @@ function getTimeSpendOpenTask(project) {
     {key: 'project_id', value: project.id},
     {key: 'status_id', value: '*'},
     {key: 'tracker_id', value: 7},
+    {key: 'cf_24', value: 'Периодическая Поддержка (SUP)'},
     {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
   ]});
 
