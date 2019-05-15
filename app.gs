@@ -3,7 +3,7 @@ function createReportTrigger() {
   var cellOptionCounter = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Options').getRange("B2");
   var valueOptionCounter = cellOptionCounter.getValue();
   cellOptionCounter.setValue(++valueOptionCounter);
-  if (valueOptionCounter > 2)
+  if (valueOptionCounter > 6)
     cellOptionCounter.setValue(0);
 }
 
