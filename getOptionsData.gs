@@ -15,7 +15,7 @@ function getOptionsData(reportType) {
     OPTIONS[key] = row.length > 1 ? row : row[0];
   });
 
-  OPTIONS.quantity = 50;
+  OPTIONS.quantity = 20;
   OPTIONS.startDate.setHours(OPTIONS.startDate.getHours() - 1 * OPTIONS.startDate.getTimezoneOffset() / 60);
   OPTIONS.finalDate.setHours(OPTIONS.finalDate.getHours() - 1 * OPTIONS.finalDate.getTimezoneOffset() / 60);
 }
