@@ -144,6 +144,16 @@ function getTimeSpendClosedTask(project) {
     allTasks = allTasks.concat(issues.issues);
   }
 
+  var issues = APIRequest('issues', {query: [
+    {key: 'project_id', value: project.id},
+    {key: 'status_id', value: 5},
+    {key: 'tracker_id', value: 7},
+    {key: 'cf_45', value: 1},
+    {key: 'created_on', value: getDateRage(OPTIONS.startDate, OPTIONS.finalDate)}
+  ]});
+
+  allTasks = allTasks.concat(issues.issues);
+
   var timeEntries = [];
 
   allTasks.forEach(function(issue) {
